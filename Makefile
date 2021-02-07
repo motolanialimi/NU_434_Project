@@ -5,11 +5,16 @@ setup:
 	# source ~/.hellovenv/bin/activate
 
 install:
-	pip install -r requirements.txt
+	pip install --upgrade pip &&\
+		pip install -r requirements.txt
+
+format:
+	black *.py
+
 
 lint:
 	pylint --disable=R,C main.py
-    # C conventional related checks
+	# C conventional related checks
 	# R refactoring related checks
 	# W various warnings
 	# E errors, for probable bugs in the code
