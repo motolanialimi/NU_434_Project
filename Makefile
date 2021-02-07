@@ -14,8 +14,5 @@ format:
 
 lint:
 	pylint --disable=R,C main.py
-	# C conventional related checks
-	# R refactoring related checks
-	# W various warnings
-	# E errors, for probable bugs in the code
-	# F fatal, if an error occured which prevented pylint
+
+All: install lint test
