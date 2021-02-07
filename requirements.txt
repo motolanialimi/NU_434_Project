@@ -2,6 +2,7 @@ Flask==1.0.2
 gunicorn==19.9.0
 pylint==2.3.1
 pytest
+black
 jupyter
 pytest-cov
 pandas

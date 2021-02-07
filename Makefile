@@ -4,13 +4,14 @@ setup:
 	# afterward then source
 	# source ~/.hellovenv/bin/activate
 
-install:
-	pip install -r requirements.txt
+test:
+	python -m pytest -vv hello_test.py
+
+format:
+	black *.py
+
 
 lint:
-	pylint --disable=R,C main.py
-    # C conventional related checks
-	# R refactoring related checks
-	# W various warnings
-	# E errors, for probable bugs in the code
-	# F fatal, if an error occured which prevented pylint
+	pylint --disable=R,C hello.py
+
+All: install lint test

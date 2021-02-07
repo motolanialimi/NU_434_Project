@@ -22,6 +22,11 @@ def creator():
     }
     return jsonify(val)
 
+def add(x,y):
+    return x+y
+
+print(add(1,3))
+
 @app.errorhandler(500)
 def server_error(e):
     logging.exception('An error occurred during a request.')
@@ -34,5 +39,3 @@ if __name__ == "__main__":
     # This is used when running locally. Gunicorn is used to run the
     # application on Google App Engine. See entrypoint in app.yaml.
 	app.run(host="127.0.0.1", port=8080, debug=True)
-
-© 2021 GitHub, Inc.
