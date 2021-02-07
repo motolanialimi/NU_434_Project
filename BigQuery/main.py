@@ -3,25 +3,24 @@ import concurrent.futures
 import flask
 from google.cloud import bigquery
 
-#create app with flask
-app = flask.Flask(__name__)
 
-# create bigquery client
-client = bigquery.Client()
+app = flask.Flask(__name__)
+bigquery_client = bigquery.Client()
+
 
 @app.route("/")
 def main():
-    query_job = client.query(
+    query_job = bigquery_client.query(
         """
         SELECT
         CONCAT(
-            'https://cloud.google.com/speech-to-text/',
+            'https://stackoverflow.com/questions/',
             CAST(id as STRING)) as url,
         view_count
-        FROM `bigquery-public-data.words.eng_fiction_1gram`
+        FROM `bigquery-public-data.stackoverflow.posts_questions`
         WHERE tags like '%google-bigquery%'
         ORDER BY view_count DESC
-        LIMIT 25
+        LIMIT 10
     """
     )
     return flask.redirect(
@@ -52,5 +51,4 @@ if __name__ == "__main__":
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
     # can be configured by adding an `entrypoint` to app.yaml.
-    app.run(host="127.0.0.1", port=8080, debug=True)    
-
+        
