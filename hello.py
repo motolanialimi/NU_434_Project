@@ -22,6 +22,11 @@ def creator():
     }
     return jsonify(val)
 
+def add(x,y):
+    return x+y
+
+print(add(1,3))
+
 @app.errorhandler(500)
 def server_error(e):
     logging.exception('An error occurred during a request.')
