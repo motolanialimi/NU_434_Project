@@ -5,13 +5,13 @@ setup:
 	# source ~/.hellovenv/bin/activate
 
 test:
-	python -m pytest -vv test_main.py
+	python -m pytest -vv test_hello.py
 
 format:
 	black *.py
 
 
 lint:
-	pylint --disable=R,C main.py
+	pylint --disable=R,C hello.py
 
 All: install lint test
