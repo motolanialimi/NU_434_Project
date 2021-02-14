@@ -3,27 +3,27 @@ import concurrent.futures
 import flask
 from google.cloud import bigquery
 
-#create app with flask
-app = flask.Flask(__name__)
 
-# create bigquery client
-client = bigquery.Client()
+app = flask.Flask(__name__)
+bigquery_client = bigquery.Client()
+
 
 @app.route("/")
 def main():
-    query_job = client.query(
+    # Perform a query
+    query_job = bigquery_client.query(
         """
         SELECT
         CONCAT(
-            'https://cloud.google.com/speech-to-text/',
+            'https://storage.googleapis.com/books/ngrams/books/datasetsv2.html',
             CAST(id as STRING)) as url,
         view_count
         FROM `bigquery-public-data.words.eng_fiction_1gram`
         WHERE tags like '%google-bigquery%'
         ORDER BY view_count DESC
-        LIMIT 25
+        LIMIT 100
     """
-    )
+    ) # API request
     return flask.redirect(
         flask.url_for(
             "results",
@@ -32,7 +32,7 @@ def main():
             location=query_job.location,
         )
     )
-@app.route("/results")
+@app.route("/results") # Waits for query to finish and displays results
 def results():
     project_id = flask.request.args.get("project_id")
     job_id = flask.request.args.get("job_id")
@@ -53,4 +53,3 @@ if __name__ == "__main__":
     # Engine, a webserver process such as Gunicorn will serve the app. This
     # can be configured by adding an `entrypoint` to app.yaml.
     app.run(host="127.0.0.1", port=8080, debug=True)
-        
